@@ -1,0 +1,45 @@
+ var c =  new Crawler({
+        maxConnections : 10,
+        callback :  function  (error, res, done) {
+            if(error){
+                console.log(error);
+            }else
+            {
+                var $ = res.$;  
+                $('.ajax_block_product').each(function(i, elem) {
+                var x=$(elem)
+                produit.site=x.find('a').attr('href').split('w.').pop().split('.tn')[0];
+             produit.image=x.find('img').attr('src');
+             produit.lien=x.find('a').attr('href');
+             produit.Nom_produit=x.find('a').attr('title');
+             produit.Prix=x.find('span.price').text();
+             produit.Etat=x.find('span.available-now').text();
+             produits.push(produit);
+    
+    });
+     $('.item-product').each(function(i, elem) {
+        var x=$(elem)
+        produit.site=x.find('a').attr('href').split('w.').pop().split('.tn')[0];
+     produit.image=x.find('img').attr('src');
+     produit.lien=x.find('a').attr('href');
+     produit.Nom_produit=$(x.find('a')).find('p').text().substr(0,27);
+     produit.Prix=x.find('span.price').text();
+     produit.Etat=x.find('span.available-now').text();
+     produits.push(produit);
+
+  
+    });
+  
+            }
+           
+       done();
+        
+        },
+        pro: produits
+       
+    }
+    
+    
+    )
+
+  c.queue([url1,url2,url3,url4])
